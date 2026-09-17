@@ -1,0 +1,34 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 1. Rotas de API direcionadas para o arquivo PHP
+  RewriteRule ^api/(.*)$ api.php?$1 [QSA,L]
+  RewriteRule ^api$ api.php [QSA,L]
+
+  # 2. Servir arquivos e pastas estáticos reais (JS, CSS, imagens, vídeos)
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # 3. Redirecionar todas as outras páginas para o index.html (SPA React)
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Habilitar CORS para permitir requisições e sincronização
+<IfModule mod_headers.c>
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+  Header set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With"
+</IfModule>
+
+# Permitir upload de vídeos até 64MB (protegido contra erro 500 caso PHP-FPM esteja ativo na Hostinger)
+<IfModule mod_php.c>
+  php_value upload_max_filesize 64M
+  php_value post_max_size 64M
+  php_value max_execution_time 300
+</IfModule>
+<IfModule mod_php7.c>
+  php_value upload_max_filesize 64M
+  php_value post_max_size 64M
+  php_value max_execution_time 300
+</IfModule>

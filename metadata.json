@@ -1,0 +1,6 @@
+{
+  "name": "Librando - Dicionário e Guia de Libras",
+  "description": "Guia e dicionário inclusivo de Libras com vídeos demonstrativos, categorias por nível de dificuldade, painel administrativo e sincronização em tempo real.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
